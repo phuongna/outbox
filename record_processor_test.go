@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	time2 "github.com/pkritiotis/outbox/internal/time"
+	time2 "github.com/phuongna/outbox/internal/time"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"

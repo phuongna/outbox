@@ -1,7 +1,7 @@
 package outbox
 
 import (
-	"github.com/pkritiotis/outbox/internal/time"
+	"github.com/phuongna/outbox/internal/time"
 	time2 "time"
 )
 

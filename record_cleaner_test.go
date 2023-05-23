@@ -2,7 +2,7 @@ package outbox
 
 import (
 	"errors"
-	"github.com/pkritiotis/outbox/internal/time"
+	"github.com/phuongna/outbox/internal/time"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	time2 "time"
