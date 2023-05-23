@@ -9,10 +9,10 @@ import (
 
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql" //needed for loading mysql driver
-	"github.com/pkritiotis/outbox"
+	"github.com/phuongna/outbox"
 )
 
-//Settings contain the mysql settings
+// Settings contain the mysql settings
 type Settings struct {
 	MySQLUsername string
 	MySQLPass     string
@@ -21,12 +21,12 @@ type Settings struct {
 	MySQLDB       string
 }
 
-//Store implements a mysql Store
+// Store implements a mysql Store
 type Store struct {
 	db *sql.DB
 }
 
-//NewStore constructor
+// NewStore constructor
 func NewStore(settings Settings) (*Store, error) {
 	db, err := sql.Open("mysql",
 		fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=True",
@@ -38,7 +38,7 @@ func NewStore(settings Settings) (*Store, error) {
 	return &Store{db: db}, nil
 }
 
-//ClearLocksWithDurationBeforeDate clears all records with the provided id
+// ClearLocksWithDurationBeforeDate clears all records with the provided id
 func (s Store) ClearLocksWithDurationBeforeDate(time time.Time) error {
 	_, err := s.db.Exec(
 		`UPDATE outbox 
@@ -55,7 +55,7 @@ func (s Store) ClearLocksWithDurationBeforeDate(time time.Time) error {
 	return nil
 }
 
-//UpdateRecordLockByState updated the lock information based on the state
+// UpdateRecordLockByState updated the lock information based on the state
 func (s Store) UpdateRecordLockByState(lockID string, lockedOn time.Time, state outbox.RecordState) error {
 	_, err := s.db.Exec(
 		`UPDATE outbox 
@@ -74,7 +74,7 @@ func (s Store) UpdateRecordLockByState(lockID string, lockedOn time.Time, state 
 	return nil
 }
 
-//UpdateRecordByID updates the provided record based on its id
+// UpdateRecordByID updates the provided record based on its id
 func (s Store) UpdateRecordByID(rec outbox.Record) error {
 	msgData := new(bytes.Buffer)
 	enc := gob.NewEncoder(msgData)
@@ -114,7 +114,7 @@ func (s Store) UpdateRecordByID(rec outbox.Record) error {
 	return nil
 }
 
-//ClearLocksByLockID clears lock information of the records with the provided id
+// ClearLocksByLockID clears lock information of the records with the provided id
 func (s Store) ClearLocksByLockID(lockID string) error {
 	_, err := s.db.Exec(
 		`UPDATE outbox 
@@ -130,7 +130,7 @@ func (s Store) ClearLocksByLockID(lockID string) error {
 	return nil
 }
 
-//GetRecordsByLockID returns the records of the provided id
+// GetRecordsByLockID returns the records of the provided id
 func (s Store) GetRecordsByLockID(lockID string) ([]outbox.Record, error) {
 	rows, err := s.db.Query(
 		"SELECT id, data, state, created_on,locked_by,locked_on,processed_on,number_of_attempts,last_attempted_on,error from outbox WHERE locked_by = ?",
@@ -168,7 +168,7 @@ func (s Store) GetRecordsByLockID(lockID string) ([]outbox.Record, error) {
 	return messages, nil
 }
 
-//AddRecordTx stores the record in the db within the provided transaction tx
+// AddRecordTx stores the record in the db within the provided transaction tx
 func (s Store) AddRecordTx(rec outbox.Record, tx *sql.Tx) error {
 	msgBuf := new(bytes.Buffer)
 	msgEnc := gob.NewEncoder(msgBuf)
@@ -196,7 +196,7 @@ func (s Store) AddRecordTx(rec outbox.Record, tx *sql.Tx) error {
 	return nil
 }
 
-//RemoveRecordsBeforeDatetime removes records before the provided datetime
+// RemoveRecordsBeforeDatetime removes records before the provided datetime
 func (s Store) RemoveRecordsBeforeDatetime(expiryTime time.Time) error {
 	_, err := s.db.Exec(
 		`DELETE FROM outbox 

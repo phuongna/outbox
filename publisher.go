@@ -3,7 +3,7 @@ package outbox
 import (
 	"database/sql"
 	"github.com/phuongna/outbox/internal/time"
-	"github.com/pkritiotis/outbox/internal/uuid"
+	"github.com/phuongna/outbox/internal/uuid"
 )
 
 // Publisher encapsulates the save functionality of the outbox pattern

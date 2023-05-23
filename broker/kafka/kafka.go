@@ -3,15 +3,15 @@ package kafka
 import (
 	"github.com/Shopify/sarama"
 
-	"github.com/pkritiotis/outbox"
+	"github.com/phuongna/outbox"
 )
 
-//Broker implements the MessageBroker interface
+// Broker implements the MessageBroker interface
 type Broker struct {
 	producer sarama.SyncProducer
 }
 
-//NewBroker constructor
+// NewBroker constructor
 func NewBroker(brokers []string, config *sarama.Config) (*Broker, error) {
 	config.Producer.Return.Successes = true
 	producer, err := sarama.NewSyncProducer(brokers, config)
@@ -21,7 +21,7 @@ func NewBroker(brokers []string, config *sarama.Config) (*Broker, error) {
 	return &Broker{producer: producer}, nil
 }
 
-//Send delivers the message to kafka
+// Send delivers the message to kafka
 func (b Broker) Send(event outbox.Message) error {
 	var headers []sarama.RecordHeader
 

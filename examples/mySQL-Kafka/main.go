@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/pkritiotis/outbox"
-	"github.com/pkritiotis/outbox/broker/kafka"
-	"github.com/pkritiotis/outbox/store/mysql"
+	"github.com/phuongna/outbox"
+	"github.com/phuongna/outbox/broker/kafka"
+	"github.com/phuongna/outbox/store/mysql"
 	"os"
 	"time"
 )

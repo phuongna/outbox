@@ -2,7 +2,7 @@ package kafka
 
 import (
 	"github.com/Shopify/sarama"
-	"github.com/pkritiotis/outbox"
+	"github.com/phuongna/outbox"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

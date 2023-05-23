@@ -5,7 +5,7 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	time2 "github.com/phuongna/outbox/internal/time"
-	uuid2 "github.com/pkritiotis/outbox/internal/uuid"
+	uuid2 "github.com/phuongna/outbox/internal/uuid"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
