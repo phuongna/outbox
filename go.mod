@@ -1,4 +1,4 @@
-module github.com/pkritiotis/outbox
+module github.com/phuongna/outbox
 
 go 1.16
 
